@@ -3,6 +3,7 @@
 lvm_groups:
   - vgname: rootvg
     disks:
+      - /dev/sda2
       - /dev/sdb
     lvnames:
       - lvname: swaplv
