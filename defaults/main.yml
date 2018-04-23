@@ -1,0 +1,70 @@
+---
+# defaults file for cas_lvm
+lvm_groups:
+  - vgname: vg_default
+    disks:
+      - /dev/sda2
+    lvnames:
+      - lvname: lv_swap
+        size: 8g
+        filesystem: swap
+        mount: false
+        mntp: []
+        mopts: 
+          opts: defaults
+          dump: 0
+          passno: 0
+      - lvname: lv_root
+        size: 3g
+        filesystem: ext4
+        mount: true
+        mntp: /
+        mopts:
+          opts: defaults
+          dump: 1
+          passno: 1
+      - lvname: lv_home
+        size: 100
+        filesystem: ext4
+        mount: true
+        mntp: /home
+        mopts:
+          opts: defaults,nodev,nosuid
+          dump: 1
+          passno: 2
+      - lvname: lv_tmp
+        size: 400
+        filesystem: ext4
+        mount: true
+        mntp: /tmp
+        mopts:
+          opts: defaults,nodev,noexec,nosuid 
+          dump: 1
+          passno: 2
+      - lvname: lv_var
+        size: 512
+        filesystem: ext4
+        mount: true
+        mntp: /var
+        mopts:
+          opts: defaults,nodev,nosuid
+          dump: 1
+          passno: 2
+      - lvname: lv_var_log
+        size: 500
+        filesystem: ext4
+        mount: true
+        mntp: /var/log
+        mopts:
+          opts: defaults,nodev,noexec,nosuid
+          dump: 1
+          passno: 2
+      - lvname: lv_var_log_audit
+        size: 200
+        filesystem: ext4
+        mount: true
+        mntp: /var/log/audit
+        mopts:
+          opts: defaults,nodev,noexec,nosuid
+          dump: 1
+          passno: 2
