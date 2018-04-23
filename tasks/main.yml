@@ -1,12 +1,12 @@
 ---
-- name: cas_lvm | creating new LVM volume group(s)
+- name: creating new LVM volume group(s)
   lvg:
     vg: "{{ item['vgname'] }}"
     pvs: "{{ item['disks']|join(',') }}"
     state: "present"
   with_items: "{{ lvm_groups }}"
 
-- name: cas_lvm | creating new LVM logical volume(s)
+- name: creating new LVM logical volume(s)
   lvol:
     vg: "{{ item[0]['vgname'] }}"
     lv: "{{ item[1]['lvname'] }}"
@@ -18,7 +18,7 @@
     - "{{ lvm_groups }}"
     - lvnames
 
-- name: cas_lvm | creating new filesystem on new LVM logical volume(s)
+- name: creating new filesystem on new LVM logical volume(s)
   filesystem:
     fstype: "{{ item[1]['filesystem'] }}"
     dev: "/dev/{{ item[0]['vgname'] }}/{{ item[1]['lvname'] }}"
@@ -27,7 +27,7 @@
     - "{{ lvm_groups }}"
     - lvnames
 
-- name: cas_lvm | mounting filesystem(s)
+- name: mounting filesystem(s)
   mount:
     path: "{{ item[1]['mntp'] }}"
     src: "/dev/{{ item[0]['vgname'] }}/{{ item[1]['lvname'] }}"
@@ -43,7 +43,7 @@
     - item[1]['mount']
     - item[1]['filesystem'] == "ext4"
 
-- name: cas_lvm | create and mount swap
+- name: create and mount swap
   shell: "swapoff -a && mkswap /dev/{{ item[0]['vgname'] }}/{{ item[1]['lvname'] }} && swapon -va"
   with_subelements:
     - "{{ lvm_groups }}"
