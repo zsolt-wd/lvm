@@ -1,10 +1,10 @@
-# cas_lvm Ansible Role
+#  LVM Ansible Role
 
 This role manages CentOS logical volumes.
 
 ## Requirements
 
-Volume group `vg_default` and disk `/dev/sda2` must exist and contain enough free space on the physical volume.
+Volume group `vg_default` and disk `/dev/sdb` must exist and contain enough free space on the physical volume.
 
 ## Role Variables
 
@@ -33,5 +33,5 @@ None.
 - name: Example for the cas_lvm role
   hosts: centos_nodes
   roles:
-    - cas_lvm
+    - lvm
 ```
